@@ -31,3 +31,4 @@ tasks:
     file:
       name: "{{ src_path }}/final_output.zip"
       state: absent
+      

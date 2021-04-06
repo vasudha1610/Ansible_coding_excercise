@@ -1,7 +1,15 @@
 ---
-name: restart service in an order
+name: restart service in an order - db_service > app_service > web_service
 host: remote
 tasks:
-  - name:
 
+  - name: check if db service availabe, check the status (running or stopped), restart db, app and web id stopped
+
+  - name: check if the  app service exists, check the status, restart app and web services if stopped
+    yum:
+      name=httpd 
+      state=latest
+    service    
+
+  - name: check if the web service exits
 
