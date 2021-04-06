@@ -1,0 +1,29 @@
+---
+name: copy file from remote to local
+host: remote_machine
+tasks:
+  - name: display variables
+    shell: echo {{ src_path }} {{ dest_path }}
+  - name : Find files older than 30 days
+    find:
+      paths: "{{ src_path }}"
+      age: 30d
+      age_stamp: mtime
+      exclude:
+        - "{{ src_path }}*.log"
+        - "{{ src_path }}*.out"
+    register: output
+  - name: archive the files in  zip
+    archive:
+      path: "{{ item.path }}"
+      dest: "{{ src_path }}/final_output.zip"
+      format: zip
+    with_items: "{{ output.files }}"
+  - name: fetch above zipped files from remote lo local
+    fetch:
+      src: "{{ src_path }}/final_output.zip"
+      dest: "{{ dest_path }}"
+  - name: delete the the zip folder in remote machine
+    file:
+      name: "{{ src_path }}/final_output.zip"
+      state: absent
