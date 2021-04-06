@@ -24,3 +24,10 @@ tasks:
       format: zip
     with_items: 
       - "{{ files_matched.stdout_lines }}"
+      
+  - name: archive the files in  zip
+    archive:
+      path: "{{ item.path }}"
+      dest: "{{ src_path }}/final_output.zip"
+      format: zip
+    with_items: "{{ output.files }}"
