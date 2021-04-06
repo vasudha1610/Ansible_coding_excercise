@@ -8,7 +8,7 @@ tasks:
   - name : Find files older than 30 days
     find:
       paths: "{{ src_path }}"
-      age: 30d
+      age: -30d
       age_stamp: mtime
       exclude:
         - "{{ src_path }}*.log"
@@ -21,6 +21,7 @@ tasks:
       dest: "{{ src_path }}/final_output.zip"
       format: zip
     with_items: "{{ output.files }}"
+
   - name: fetch above zipped files from remote lo local
     fetch:
       src: "{{ src_path }}/final_output.zip"

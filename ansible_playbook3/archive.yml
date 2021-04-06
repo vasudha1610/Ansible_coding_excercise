@@ -2,4 +2,25 @@
 name: archive/zip all files inside a given directory created by a "test" user which are older than a month
 host: remote
 tasks:
-  - name:
+  - name: find all the files craated by "test user"
+    find: 
+      path: /
+      file_type: file
+      recurse: yes
+      use_regex: yes
+      age: "30d"
+    register: files_matched
+
+  - name: filter above selected files created by "test" user
+    shell: "find / -user $test > /tmp
+    with_items: 
+      - {{ files_matched.stdout_lines }}
+     
+  - name: archive the files in  zip
+    archive:
+
+      path: {{ item.path }}
+      dest: {{ src_path }}/final_output.zip
+      format: zip
+    with_items: 
+      - {{ files_matched.stdout_lines }}
