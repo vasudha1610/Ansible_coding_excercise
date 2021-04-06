@@ -1,0 +1,5 @@
+---
+name: archive/zip all files inside a given directory created by a "test" user which are older than a month
+host: remote
+tasks:
+  - name: 
