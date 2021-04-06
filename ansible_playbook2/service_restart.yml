@@ -3,13 +3,31 @@ name: restart service in an order - db_service > app_service > web_service
 host: remote
 tasks:
 
-  - name: check if db service availabe, check the status (running or stopped), restart db, app and web id stopped
-
-  - name: check if the  app service exists, check the status, restart app and web services if stopped
+  - name: Create a new database with name 'mysql-DB'check the status (running or stopped), restart db_service, app_service and web_services if stopped
+  #restart db_service, app_service and web_services if stopped
+    mysql_db:
+      name: mysql-DB
+      state: stopped
+    notify: restart all 3 services
+    
+  - name: check if the  app service exists, check the status, restart app_services and web_services if stopped
+  #restart app_services and web_services if stopped
     yum:
-      name=httpd 
-      state=latest
-    service    
-
-  - name: check if the web service exits
+      name: httpd 
+      state: stopped
+    notify: restart app_service and web_service
+      
+  - name: check if the web_service exists and it's status, restart web_service only if stopped
+  #restart web_service only if stopped
+      yum: 
+        name: web_service
+        state: stopped
+       notify: restart web-service
+       
+   - handlers:
+   
+        
+  
+  
+  #use handlers, notify and listen
 
