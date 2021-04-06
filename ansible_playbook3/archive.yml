@@ -9,6 +9,8 @@ tasks:
       recurse: yes
       use_regex: yes
       age: "30d"
+      #instead of using below shell module we can also add 
+      #owner: test ---- but owner is not always the creator but usually is
     register: files_matched
 
   - name: filter above selected files created by "test" user
