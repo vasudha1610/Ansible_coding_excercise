@@ -17,13 +17,6 @@ tasks:
     shell: "find / -user $test > /tmp
     with_items: 
       - {{ files_matched.stdout_lines }}
-     
-  - name: archive the files in  zip
-    archive:
-      path: /tmp/output.zip
-      format: zip
-    with_items: 
-      - "{{ files_matched.stdout_lines }}"
       
   - name: archive the files in  zip
     archive:
