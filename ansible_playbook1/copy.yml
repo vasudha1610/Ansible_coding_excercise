@@ -30,5 +30,5 @@ tasks:
   - name: delete the the zip folder in remote machine
     file:
       name: "{{ src_path }}/final_output.zip"
-      state: absent
+      state: absent 
       
