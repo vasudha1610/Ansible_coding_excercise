@@ -4,7 +4,7 @@ host: remote_machine
 tasks:
   - name: display variables
     shell: echo {{ src_path }} {{ dest_path }}
-    
+
   - name : Find files older than 30 days
     find:
       paths: "{{ src_path }}"
