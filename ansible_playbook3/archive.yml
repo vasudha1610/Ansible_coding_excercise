@@ -23,4 +23,4 @@ tasks:
       path: /tmp/output.zip
       format: zip
     with_items: 
-      - {{ files_matched.stdout_lines }}
+      - "{{ files_matched.stdout_lines }}"
