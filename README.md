@@ -17,5 +17,5 @@ So if the app_service requires a restart then app_service is restarted first and
 b. Using ansible handlers write a program to check the status of each service and if some service is found stopped, restart only the required services in a proper order.
 
 
-# Ansible_plybook3: archieve file
+# Ansible_plybook3: archive file
 3. Write a playbook to archive/zip all files inside a given directory (and its sub-directories) created by a "test" user, which are older than a month.
