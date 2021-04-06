@@ -2,7 +2,7 @@
 name: archive/zip all files inside a given directory created by a "test" user which are older than a month
 host: remote
 tasks:
-  - name: find all the files craated by "test user"
+  - name: find all the files craated by "test user" which are older than 30 days
     find: 
       path: /
       file_type: file
@@ -18,9 +18,7 @@ tasks:
      
   - name: archive the files in  zip
     archive:
-
-      path: {{ item.path }}
-      dest: {{ src_path }}/final_output.zip
+      path: /tmp/output.zip
       format: zip
     with_items: 
       - {{ files_matched.stdout_lines }}
