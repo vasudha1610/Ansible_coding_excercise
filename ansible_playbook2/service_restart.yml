@@ -2,32 +2,43 @@
 name: restart service in an order - db_service > app_service > web_service
 host: remote
 tasks:
-
   - name: Create a new database with name 'mysql-DB'check the status (running or stopped), restart db_service, app_service and web_services if stopped
-  #restart db_service, app_service and web_services if stopped
+  #restart db_service, app_service and web_services if stopped ---> not sure
     mysql_db:
       name: mysql-DB
       state: stopped
-    notify: restart all 3 services
-    
+    notify:
+      - restart mysql-DB
+      - restart httpd
+      - restart apache
+      
   - name: check if the  app service exists, check the status, restart app_services and web_services if stopped
-  #restart app_services and web_services if stopped
+  #restart app_services and web_services if stopped --> sure - as it is given i the Q itself
     yum:
       name: httpd 
       state: stopped
-    notify: restart app_service and web_service
+    notify: 
+      - restart httpd
+      - restart apache
       
   - name: check if the web_service exists and it's status, restart web_service only if stopped
-  #restart web_service only if stopped
-      yum: 
-        name: web_service
+  #restart web_service only if stopped -- not sure
+    yum: 
+        name: apache
         state: stopped
-       notify: restart web-service
-       
-   - handlers:
-   
-        
-  
-  
-  #use handlers, notify and listen
-
+    notify: 
+         - restart apache
+         
+    handlers:
+    - name: Restart mysql-DB
+      ansible.builtin.service:
+        name: mysql-DB
+        state: restarted
+    - name: Restart httpd
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+    - name: Restart apache
+      ansible.builtin.service:
+        name: apache
+        state: restarted
