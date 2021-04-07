@@ -14,7 +14,7 @@ tasks:
     register: files_matched
 
   - name: filter above selected files created by "test" user
-    shell: "find / -user $test > /tmp
+    shell: "find / -user $test > /tmp"
     with_items: 
       - {{ files_matched.stdout_lines }}
       
